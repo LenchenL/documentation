@@ -26,7 +26,7 @@ The settings that we tune in this section are interconnected with the deployment
 
 1. Open 'Applications' menu
 2. Click Add application button
-![addapp](images/addapp.png)
+![](https://raw.githubusercontent.com/LenchenL/documentation/master/images/addapp.png)
 3. Choose **WEB** container and click **Next**
 ![webapp](images/webapp.png)
 4. Add **Base URIs**. These are the domains where your application runs. Trusted Origins will be created for these URIs automatically, and will be the only domains Okta accepts API calls from. Use your CAM Portal URI and Admin Portal URI including ports that will be used during the deployment procedure. 
