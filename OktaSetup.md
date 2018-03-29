@@ -43,7 +43,7 @@ http://localhost:54477/ (CAM)
     3. 'Implicit (Hybrid)''
 7. Click **Done**
 
-Your application will appear in the list of apps. You can easily access it by click on Applications menu item in the header
+Your application will appear in the list. You can easily access it by click on Applications menu item in the header
 
 Choose your app in the list of applications to tweak its settings, click **Edit**
 ![appedit](images/appedit.png)
@@ -51,7 +51,7 @@ Choose your app in the list of applications to tweak its settings, click **Edit*
 1. In the **Allowed grant types** group of settings, tick **Allow Access Token with implicit grant type**
 2. In the **Initiate login URI**, add login URI for Admin portal, e.g. http://localhost:54478/account/login. It means that the `localhost:54478` should be substituted with the relevant `address:port` and after it added `/account/login`
 
-The next step is to check the Trusted Origins. To do so you need to click **API** menu item and choose **Trusted origins** in the dropdown 
+The next step is to check the Trusted Origins. To do so you need to click **API** menu item in the header and choose **Trusted origins** in the dropdown 
 ![apitrusted](images/apitrusted.png)
 
 If you added **Base URIs** while setting up your application, the trusted origins will be on the list. 
