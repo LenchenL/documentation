@@ -2,6 +2,8 @@
 
 In this walkthrough we will go through all the deployment process step by step. Before you start, please, prepare your environment for deployment. The tools and software you will need are listed in the next section
 
+>Note: It is strongly recommended to read the whole document before you start deploying to understand how the settings are interconnected and mutually dependent
+
 ## Prerequisites
 
 - The latest version of [Visual Studio 2017 Community](https://www.visualstudio.com/downloads/)
@@ -14,5 +16,10 @@ In this walkthrough we will go through all the deployment process step by step. 
 - [Microsoft SQL Server Management Studio 17.5](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
 - Notepad
 - GitHub account
-- Okta developer account (se below how to set it up)
+- Okta developer account (see below how to set it up)
+
+## Okta configuration
+In this section you will configue authorization presets in Okta web interface. Configuring Okta in advance will allow us to use ports designated as trusted.
+
+
 
