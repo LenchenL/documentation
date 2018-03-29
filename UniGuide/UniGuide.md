@@ -160,3 +160,19 @@ If you don't have an existing public and private key pair, or don't wish to use 
 5. Choose directory where your repo will be located: enter `cd '~/tmxsource'`, where '~/tmxsource' is the directory to the folder with the source code
 6. Enter `git clone` and paste the SSH you've copied earlier next to with **Shift + Insert** shortcut
 7. Press **Enter**. The repo will be downloaded to the designated folder
+
+### Step 2: Prepare the project for publication
+
+Open `Trimedx.Healthcare.sln` with Visual Studio 2017. If you have installed the prerequisites correctly, the solution file will be opened smoothly. Otherwise, Visual Studio will require installing the missing components.
+
+Open the Solution Explorer
+>You can do it from the main menu of the Visual Studio: View -> Solution Explorer or using hotkeys Ctrl + W, S (consecutively)
+
+
+**CAM**
+In the Solution Explorer right-click the Trimedx.Healthcare.Web project and select Publish to open the **Publish Web** tab
+
+![publish](images/publish.png)
+
+**Admin**
+In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project and select Publish to open the **Publish Web** tab
