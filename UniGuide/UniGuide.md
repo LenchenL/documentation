@@ -132,13 +132,17 @@ If you don't have an existing public and private key pair, or don't wish to use 
 1. Open Git Bash
 2. Enter `clip < ~/.ssh/id_rsa.pub` to copy the SSH key to your clipboard.
 3. In the upper-right corner of any page, click your profile photo, then click **Settings**.
+
 ![settingsgh](images/userbar-account-settings.png)
 4. In the user settings sidebar, click **SSH and GPG keys**.
+
 ![settings-sidebar-ssh-keys](images/settings-sidebar-ssh-keys.png)
 5. Click **New SSH key** or **Add SSH key**.
+
 ![ssh-add-ssh-key](images/ssh-add-ssh-key.png)
 6. In the "Title" field, add a descriptive label for the new key.
 7. Paste your key into the "Key" field.
+
 ![ssh-key-paste](images/ssh-key-paste.png)
 8. Click **Add SSH key**.
 9. If prompted, confirm your GitHub password.
@@ -148,6 +152,7 @@ If you don't have an existing public and private key pair, or don't wish to use 
 
 1. Open your project in GitHub
 2. Click **Clone or download**
+
 ![clonerepo](images/clonerepo.png)
 3. Choose 'Clone with SSH' if it's not selected by default
 4. Click 'Copy to clipboard'
