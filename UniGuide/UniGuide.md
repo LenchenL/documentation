@@ -170,9 +170,11 @@ Open the Solution Explorer
 
 
 **CAM**
+
 In the Solution Explorer right-click the Trimedx.Healthcare.Web project and select Publish to open the **Publish Web** tab
 
 ![publish](images/publish.png)
 
 **Admin**
+
 In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project and select Publish to open the **Publish Web** tab
