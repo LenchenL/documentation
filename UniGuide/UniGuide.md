@@ -178,3 +178,24 @@ In the Solution Explorer right-click the Trimedx.Healthcare.Web project and sele
 **Admin**
 
 In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project and select Publish to open the **Publish Web** tab
+
+---
+### Step 3: Create your Publish Profile
+
+You will need to create its own **Publish profile** for CAM and for Admin portal. Make the profiles' names explicitely show which website they belong to (CAM or Admin). 
+
+1. In the **Publish web** tab choose **Publish** in the right-hand pane
+2. Click **Create new profile** inline link ![newprofile](images/newprofile.png)
+3. Pick **IIS, FTP, etc** as a publish target ![target](images/target.png)
+4. Click **Create profile** button and configure your profile in the Publish wizard
+5. In **Connection** tab 
+![connection](images/connection.png)
+    1. Select the publishing method: `Web deploy package` 
+    2. Choose the package location. You can either use an existing folder or create a new folder for it. 
+    3. Add your site name, e.g., 'Tmx-Healthcare'
+6. In **Settings** tab:
+![settings](images/settings.png)
+    1. Choose configuration purpose: **Release** for production
+    2. Target framework: net47
+    3. Choose Target runtime depending on the OS
+7. Click **Save** to save changes and close the wizard
