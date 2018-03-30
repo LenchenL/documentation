@@ -49,9 +49,11 @@ http://localhost:54478/ (Admin)
 
 http://localhost:54477/ (CAM)
 ![appsetup](images/appsetup.png)
+
 5. **Login redirect URIs**:
-    1. Add base Admin Portal URI, e.g. http://localhost:54478/
+    1. Add base Admin Portal URI, e.g. http://localhost:54478/  
     2. Add CAM Portal login redirect, e.g. http://localhost:54477/app. Substitute `localhost:54477` with the relevant `address:port` and add `/app` after it
+
 6. For **Grant type allowed** tick
     1. 'Authorization Code'
     2. 'Refresh Token
@@ -184,7 +186,7 @@ In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project an
 
 You will need to create its own **Publish profile** for CAM and for Admin portal. Make the profiles' names explicitely show which website they belong to (CAM or Admin). 
 
-1. In the **Publish web** tab choose **Publish** in the right-hand pane
+1. In the **Publish web** right-hand pane choose **Publish**
 2. Click **Create new profile** inline link ![newprofile](images/newprofile.png)
 3. Pick **IIS, FTP, etc** as a publish target ![target](images/target.png)
 4. Click **Create profile** button and configure your profile in the Publish wizard
@@ -199,3 +201,346 @@ You will need to create its own **Publish profile** for CAM and for Admin portal
     2. Target framework: net47
     3. Choose Target runtime depending on the OS
 7. Click **Save** to save changes and close the wizard
+
+---
+### Step 4: Build your project
+
+When you are done with Publish Profile settings, click 'Publish' button. The package building process will start ![publishing](images/publishing.png)
+
+>The settings for a publish profile are stored in a .pubxml file that is located in the PublishProfiles folder. In web application projects, the PublishProfiles folder is in the Properties folder (for C#). In web site projects the PublishProfiles folder is in the App_Data folder. When you create the first publish profile in a web site project, a website.publishproj file is also created in the root folder of the website. These files are only used for publishing; they are not deployed when you deploy the site.
+
+**CAM**
+
+If your build process finished successfully, in the destination folder of your CAM portal package you will find the following files:
+
+- Trimedx.Healthcare.Web.deploy.cmd
+- Trimedx.Healthcare.Web.deploy-readme.txt
+- Trimedx.Healthcare.Web.Parameters.xml
+- Trimedx.Healthcare.Web.SetParameters.xml
+- Trimedx.Healthcare.Web.SourceManifest.xml
+- Trimedx.Healthcare.Web.zip
+
+**Admin**
+
+If your build process finished successfully, in the destination folder of your Admin portal package you will find the following files:
+
+- Trimedx.Healthcare.Web.Admin.deploy.cmd
+- Trimedx.Healthcare.Web.Admin.deploy-readme.txt
+- Trimedx.Healthcare.Web.Admin.Parameters.xml
+- Trimedx.Healthcare.Web.Admin.SetParameters.xml
+- Trimedx.Healthcare.Web.Admin.SourceManifest.xml
+- Trimedx.Healthcare.Web.Admin.zip
+
+---
+### Step 5: Create a website using IIS manager
+
+A Web site is a container for Web applications, and you can access it through one or more unique bindings. A Web site binding is the combination of an IP address, a port, and the optional host headers on which HTTP.sys listens for requests made to that Web site. Web site bindings use the HTTP or HTTPS protocols. You can create Web sites and share information with users on the Internet, an intranet, or an extranet.
+
+You will create one website for CAM portal and one website for Admin portal
+
+Open Internet Information Services (IIS) Manager
+![IIS](images/IIS.png)
+
+>If you want to learn more about IIS manager functionality, please, reach out [Microsoft official documentation](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc732976(v=ws.10))
+
+In the Connections pane, right-click the Sites node in the tree, and then click Add Web Site
+![siteadd](images/siteadd.png)
+
+>Note that the site name you added when configured the Publish profile in Visual Studio (see Step 3) should be the same as the site name you've created via IIS manager
+![similar names](images/similarnames.png)
+
+![addsite](images/addsite.png)
+
+1. In the Add Web Site dialog box, type a name for your Website in the Web site name box.
+2. Click Select if you want to select a different application pool than the one listed in the Application Pool box. In the Select Application Pool dialog box, select an application pool from the Application Pool list and then click OK.
+    1. The application pool parameters: ASP.NET v4; Pipeline mode: Integrated
+3. In the Physical path box, type the physical path of the Web site's folder (that's where your website will be physically located), or click the browse button (...) to navigate the file system to find or create the folder.
+4. In the Binding group of settings, choose the binding type, IP address (if needed), and a trusted port. The trusted port should be present in the base URI of the CAM Portal or Admin Portal (depending on what website you are going to deploy) and listed in  **Trusted origins** in Okta configuration
+5. If you do not have to make any changes to the site, and you want the Web site to be immediately available, tick the Start Web site immediately check box.
+6. Click OK
+
+> If you need to set up a hostname that is different from the name of your local machine, ask your network administrator to provide you with the hostname and DNS
+
+---
+### Step 6: Add environment variables
+Environment variables are strings that contain information such as file name or path. These variables control the behavior of various programs on a computer. Value of environment variables depends on the environment of the website that you are deploying (Staging or Production). In this documentation we set up Production environment.
+
+The settings for CAM and Admin Portal are identical, but you will need to add the environmental variable to every site.
+
+1. Open Configuration Editor of the website from the central field of the IIS Manager
+![confeditorbutton](images/confeditorbutton.png)
+
+2. Choose Environment Variables 
+![confeditor](images/confeditor.png)
+
+3. Click 'Add' in the right-hand sidebar 
+![addenvvar](images/addenvvar.png)
+
+4. Edit the input fields to add name and value
+![varinput](images/varinput.png)
+
+    1. Type in the name input field ```ASPNETCORE_ENVIRONMENT``` 
+    2. Type in the value input field ```Production```
+    3. Close the window
+5. Click 'Apply' in the right-hand sidebar
+
+---
+### Step 7: Launch the website
+
+1. Open the Command Prompt application (right-click on the application and choose 'Run as administrator')
+    1. Start -> All Programs -> System tools -> Command Prompt (for Windows 7)
+    2. or search using `cmd` keyword in the Windows search box (for Windows X)
+2. Open the scenario file using the command ``` "D:\site build\Trimedx.Healthcare.Web.deploy.cmd" /Y```
+![cmd](images/cmd.png)
+    1. It means that the Command Prompt will run the file located on your machine
+    2. For **CAM** instead of D:\site build\ use your path to the file Trimedx.Healthcare.Web.deploy.cmd
+    3. For **Admin** instead of D:\site build\ use your path to the file Trimedx.Healthcare.Web.Admin.deploy.cmd
+    4. The ` /Y` flag deploys the package to the current machine (or destination server)
+4. Hit 'Enter'
+The file will be launched 
+
+>You can ensure that you've done everything correctly if you return to IIS Manager and refresh COnnections pane (right-click in the Connections pane and choose 'Refresh'). Your website node will have several additional folders in the tree below
+
+Check if your website is running
+
+1. Open IIS Manager
+2. Choose your website
+3. Check the left-hand side-menu 'Manage website' group to ensure the website is running 
+ 
+![startwebsite](images/startwebsite.png)
+4. If it is not running already, press 'Start' button
+
+---
+### Step 8: Open your website in the browser
+
+1. Use the name of your machine and the trusted port you indicated in the website settings when created a new one via IIS manager, e.g. `172.17.1.97:54477`
+   1. This address is visible from the web if it's allowed by your Firewall
+2. Use `localhost:trusted port`, e.g. `localhost:54477` to open your web application on your local machine
+3. In the left-hand side-menu of the IIS manages (with your website selected), choose the Browse website menu group and select the corresponding link
+![browse](images/browse.png)
+
+>Note that at the current stage you won't be able to log in because there's no connection to the database. We will set it up in the next steps
+
+---
+### Step 9: Connect to the SQL Server
+
+To set connections between your website and the database you will need to 
+
+1. Install SQL Server Management Studio 17.5 (follow the steps of the application installation wizard)
+2. In the main menu click File -> Connect Object Explorer 
+![ConnectOE](images/ConnectOE.png)
+3. In the Connect to Server popup  
+![sqlserver](images/sqlserver.png)
+    1. Type in your local database server name
+    2. Choose `SQL Server Authentication` in Authentication dropdown
+    3. Use proper credentials to get access to the server
+6. Click 'Connect'
+7. If succeeded, you will see the unfolded tree with the database objects located at the server
+
+>Note: If your databases are located on one server, the credentials will be similar for both **CAM** and **Admin** databases. Ask your system administrator for details
+
+---
+### Step 10: Create your database
+
+You will need to create a separate database **CAM** and **Admin** portals
+
+1. In Object Explorer pane, right-click Databases node and choose New Database ![newdb](images/newdb.png)
+2. Type in the name of your database and click **OK**. Choose the name theat will explicitely show which portal it belongs to, e.g. camsql for CAM and admin sql for Admin
+
+
+---
+### Step 11: Populate your database with objects and data
+**CAM**
+
+1. Find the files in the repository you have downloaded to your local machine (src -> Trimedx.Healthcare.DB)
+    1. CAMDDLScript.sql
+    2. CAMDDLUpdate.sql
+    3. SP.sql
+2. Open them in the SQL Server Management Studio (either drag & drop them to the SQL Server Management Studio window or open from the main menu File -> Open -> browse window)
+3. Select the database you created in the control panel dropdown. This action indicates the execution context ![choosedb](images/choosedb.png)
+4. Execute them in the exact order stated above by pressing the F5 button or Execute button ![execute](images/execute.png) in the control panel
+5. Enter login and password every time you are prompted to do so
+
+> Check the execution context before you execute the scripts to ensure that you populate the correct database
+
+**Admin**
+
+1. Find the files in the repository you have downloaded to your local machine (src -> Trimedx.Healthcare.DB -> CAM Portal)
+    1. CAMPortalDDLScript.sql
+    2. CAMPortalDDLUpdate.sql
+    3. SP.sql
+    4. CAMPortalInsertsTest.sql
+2. Open them in the SQL Server Management Studio (either drag & drop them to the SQL Server Management Studio window or open from the main menu File -> Open -> browse window)
+3. Select the database you created in the control panel dropdown. This action indicates the execution context ![choosedb](images/choosedb.png)
+4. Execute them in the exact order stated above by pressing the F5 button or Execute button ![execute](images/execute.png) in the control panel
+
+> Check the execution context before you execute each script to ensure that you populate the correct database
+
+---
+### Step 12-CAM: Update parameters
+
+>This step is relevant only for **CAM** Portal deployment
+
+In this step we set up parameters that a script file will need to populate your database with data. 
+
+1. Find the run_params.bat file in the repository you have downloaded to your local machine (src -> Trimedx.Healthcare.DB -> CAMInserts -> run_params.bat)
+2. Open this file with Notepad or any other text editor
+![runparam](images/runparam.png)
+3. Set the parameters you use, including the Database name you added above
+4. Save changes using **Ctrl + S** shortcut
+
+---
+### Step 13-CAM: Populate your database with data
+
+>This step is relevant only for **CAM** Portal deployment
+
+1. In the same folder (src -> Trimedx.Healthcare.DB -> CAMInserts -> run_params.bat) find run.bat file
+2. Open the Command Prompt
+3. Change directory to the one where the file is located, e.g. `cd D:\repos\trimedx-master-320\src\Trimedx.Healthcare.DB\CAMInserts` 
+3. Drag and drop to the Command Prompt run.bat file and press Enter
+4. The Command Prompt will show logs of updated rows
+
+---
+### Step 14: Update connection parameters
+
+In this step, we set up connection to the Admin Database. 
+
+**CAM**
+
+1. Open your website physical path (the one you indicated in the IIS Manager settings; see **Step 5**), find the file 'dbConnectionSettings.Production.json'. 
+2. Open it with any IDE or text editor (e.g., Notepad)
+3. Replace the values with the relevant to Admin Portal database parameters:
+![consettings](images/consettings.png)
+    1. server, e.g. server=n1670 - server name where your Admin DB is located (if different from CAM DB server)
+    2. User Id, e.g. User Id=camsql - User ID needed to access to your Admin DB (if different from CAM DB server)
+    3. Password, e.g. Password=12345 - Password needed to access to your Admin DB (if different from CAM DB server)
+    4. Database, e.g. database=adminsql101 - Your Admin database name
+4. Save changes using **Ctrl + S** shortcut
+
+>Note: If you want to add an SQL instance (corresponds to the `SQLINST` parameter in run_params.bat), add it to the server, placing double back-slashes after the server name, e.g. `server=n1670\\mssql2014dev`
+
+**Admin**
+
+1. Open your website physical path (the one you indicated in the IIS Manager settings; see **Step 5**), find the file 'dbConnectionSettings.Production.json'
+2. Open it with any IDE or text editor (e.g., Notepad)
+3. Replace the values with the relevant ones:
+![consettings](images/consettings.png)
+    1. server, e.g. server=n1670
+    2. User Id, e.g. User Id=camsql
+    3. Password, e.g. Password=12345
+    4. Database, e.g. database=adminsql101
+4. Save changes using **Ctrl + S** shortcut
+
+>Note: If you want to add an SQL instance, add it to the server, placing double back-slashes after the server name, e.g. `server=n1670\\mssql2014dev`
+
+---
+### Step 15: Setup redirect
+
+**CAM**
+
+Make your CAM Portal communicate with Admin Portal correctly.
+
+1. Open your website physical path (the one you indicated in the IIS Manager settings; see **Step 5**), find the file 'appsettings.Production.json'
+2. Open it with any IDE or text editor (e.g., Notepad)
+3. In the ```"Admin"``` group of settings you need to set up argument 
+``` "AdminUrl": "http://localhost:54478"```
+It means that the `localhost:54478` should be substituted with the relevant to you Admin login redirect URI: `address:port`
+![adminredirect](images/adminredirect.png)
+
+
+**Admin**
+
+Make your Admin Portal communicate with CAM Portal correctly.
+
+1. Open your website physical path (the one you indicated in the IIS Manager settings; see **Step 5**), find the file 'appsettings.Production.json'
+2. Open it with any IDE or text editor (e.g., Notepad)
+3. In the ```"Cam"``` group of settings you need to set up argument 
+```"Redirect": "http://localhost:54477/app"```
+It means that the `localhost:54477` should be substituted with the relevant to you CAM login redirect URI: `address:port` and after it added `/app`
+![camredirect](images/camredirect.png)
+
+### Step 16: Apply Okta settings locally
+
+
+**CAM**
+
+1. Open the physical path of your CAM website, find `appsettings.Production.json` file.
+2. Open this file with any text editor (Notepad, Visual Studio or any other IDE)
+3. In the Authentication group of settings you need to set up arguments
+![camlocalsettings](images/camlocalsettings.png)
+    1. ```"Authority": "https://trimedx.oktapreview.com"``` - this is your Okta domain
+    2. ```"Audience": "0oad3e4n0q8timfky0h7"``` - this is your client ID. Client ID you can find in Applications general settings in Okta:
+    ![clientid](images/clientid.png)
+4. Apply changes using **Ctrl + S** shortcut
+
+
+**Admin**
+
+1. Open the physical path to your Admin website, find `appSettings.Production.json` file.
+2. Open this file with any text editor (Notepad, VisualStudio or any other IDE)
+3. In the Authentication group of settings you need to set up arguments
+![adminlocalsettings](images/adminlocalsettings.png)
+    1. ```"Authority": "https://trimedx.oktapreview.com"``` - this is your Okta domain
+    2. ```"Audience": "0oad3e4n0q8timfky0h7"``` - this is your client ID. Client ID you can find in Applications general settings in Okta
+    ![clientid](images/clientid.png)
+    3. ```"Token": "007oE4dPdsRlzyVTWXV1z44twXftu0U4i1FWsYBKe4"``` - it is possible to copy the token only the moment it was generated, if you don't have a copy of your token or your current toke was compromised, generate a new one, copy it to clipboard and paste here. See how to generate a token below.
+    4. ```"ClientSecret": "0Ejdg7uTnQ_pNOEYaBP5rYnrbJlBQTLea0N2fEL_"``` - this is your Client Secret. You can find it in Applications general settings in Okta (see the screenshot for the `"Audience"` argument)
+5. Apply changes using **Ctrl + S** shortcut
+
+
+**How to generate a new token**
+
+1. Go to **API** -> **Tokens** 
+![token](images/token.png)
+2. Click **Create Token** button
+![createtoken](images/createtoken.png)
+3. In the Create Token popup window enter the name of your token and click **Create token** button
+![tokenpopup](images/tokenpopup.png)
+4. This is the only time you see the token value. Copy it to clipboard and paste in the corresponding argument of `appsettings.Production.json` file (see **Admin Portal APP Settings** above)
+![tokenvalue](images/tokenvalue.png)
+
+Okta authentication is considered to be integrated into your project the moment you've completed and saved local app settings.
+
+---
+### Step 16: Launch your website
+
+Launch your website using one of the addresses from **Step 8**
+
+---
+## Update or re-deploy your websites
+If any changes in the source code occur you need to redeploy them to the production website. Before you deploy any changes, make sure they don't influence the stability of the Portal (test and debug them first). The deployment process remains the same, it is the safest way to keep the code and data integrity: the changes will be included in the new deploy package built by the Visual Studio Publish feature.
+
+If any changes in the source code occur you need to redeploy them to the production website. Before you deploy any changes, make sure they don't influence the stability of the Portal (test and debug them first). The deployment process remains the same, it is the safest way to keep the code and data integrity: the changes will be included in the new deploy package built by the Visual Studio Publish feature.
+
+---
+Update your source code: 
+
+1. Open Git Bash
+2. Navigate to the directory with your repo (enter `cd '~/tmxsource'`, where '~/tmxsource' is the address to the folder with the source code)
+3. Enter `git fetch origin && git merge origin`. The directory with the source code will be updated with the newest changes
+
+>Download a new .zip if this method is preferable for you
+
+---
+Build a package using the Visual Studio one-click publish feature. See **Step 2**,  **Step 3** and **Step 4** for details
+
+---
+You will not need to make any changes to the website in the IIS Manager. You can Stop the website for the re-deploy period, but it's not mandatory
+
+---
+If your database scripts were changed, execute the new scripts. To do so, repeat actions listed in **Step 11** 
+
+---
+Check your connection parameters in the file 'dbConnectionSettings.Production.json'. See **Step 14** for details
+
+---
+Check your environment variable for presence, add it anew if missing. See **Step 6**
+
+---
+Check your redirect settings in the file 'appsettings.Production.json'. See **Step 15** for details
+
+---
+Restart your website from the IIS Manager left sidebar, see **Step 7** for details
+
+---
+Launch your website using one of the addresses from **Step 8**
