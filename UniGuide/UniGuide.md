@@ -21,20 +21,25 @@ In this walkthrough we will go through all the deployment process step by step. 
 ## Okta configuration
 In this section you will configue authorization presets in Okta web interface. Configuring Okta in advance will allow you to use designated ports in further setup.
 
-## Sign Up for Okta
-You’ll need a free Okta developer organization to get started. 
 
-TriMedX Okta developer organization: https://trimedx.oktapreview.com
-Ask your network administrator for credentials.
+##Requirements
+-Okta account
 
-If you don’t have one already, sign up to create it here: https://developer.okta.com/signup/
+### Sign Up for Okta
+This step is optional and needed only if you are going to set up a new Okta account. 
+
+You’ll need a free Okta developer organization to get started. Current TriMedX Okta developer organization: https://trimedx.oktapreview.com
+Ask your system engeneer for credentials.
+
+If you don’t have one, sign up to create it here: https://developer.okta.com/signup/
 When you create a new Okta organization, it will be assigned a base URL like `dev-12345.oktapreview.com`. This is your unique subdomain in Okta. `oktapreview.com` organizations are production-ready and can be used for development work or full-fledged apps.
 
-## Set up and tweak an application
 
-The settings that we tune in this section are interconnected with the deployment IIS Manager settings. It means, that the sites and ports you enter here should be the same as the sites and ports you enter in your IIS Manager setup. 
+### Set up and configure your application
 
->Note: If an **Application** for https://trimedx.oktapreview.com developer account is already set up, please, look through the settings and varify them. 
+The settings that you will tune in this section are interconnected with the deployment IIS Manager settings. It means, that the sites and ports you enter here should be the same as the sites and ports you enter in your IIS Manager setup. 
+
+>Note: An **Application** for https://trimedx.oktapreview.com developer account is already set up, please, look through the settings and varify them **Edit** button in **Applications** menu. 
 
 1. Open **Applications** menu
 2. Click **Add application** button
