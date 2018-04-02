@@ -518,8 +518,6 @@ Launch your website from IIS
 ## Update or re-deploy your websites
 If any changes in the source code occur you need to redeploy them to the production website. Before you deploy any changes, make sure they don't influence the stability of the Portal (test and debug them first). The deployment process remains the same, it is the safest way to keep the code and data integrity: the changes will be included in the new deploy package built by the Visual Studio Publish feature.
 
-If any changes in the source code occur you need to redeploy them to the production website. Before you deploy any changes, make sure they don't influence the stability of the Portal (test and debug them first). The deployment process remains the same, it is the safest way to keep the code and data integrity: the changes will be included in the new deploy package built by the Visual Studio Publish feature.
-
 ---
 *Update your source code:*
 
