@@ -8,7 +8,8 @@ In this walkthrough we will go through all the deployment process step by step. 
 
 - The latest version of [Visual Studio 2017 Community](https://www.visualstudio.com/downloads/)
 - [.NET Core 2.0.6](https://github.com/dotnet/core/blob/master/release-notes/download-archives/2.0.6-download.md)
-- .ASP.NET Core will be downloaded while opening the project with Visual Studio (in case it's missing)
+- [ASP.NET Core Module for IIS and IIS Express](https://github.com/aspnet/AspNetCoreModule)
+- ASP.NET Core will be downloaded while opening the project with Visual Studio (in case it's missing)
 - [NodeJS 8.9.1](https://nodejs.org/en/blog/release/v8.9.1/)
 - [.NET Framework 4.7](https://www.microsoft.com/en-US/download/details.aspx?id=55167)
 - [Git Bash](https://git-scm.com/downloads) (for Windows use default installation presets)
@@ -87,6 +88,7 @@ Later, when the website is deployed, you will apply these settings locally by ed
 
 ## Deployment quide
 In this section you will deploy both sites. Bear in mind that most of the steps are the same for each of them. The peculiarities will be described under the subtitles **CAM** for CAM Portal deployment process and **Admin** for Admin Portal deployment process.
+
 
 ### Step 1: Copy repository to your local computer
 This is a unified procedure for both sites as they are located in the same repository.
@@ -252,6 +254,7 @@ In the **Connections** pane, right-click the **Sites** node in the tree, and the
 ![similarnames](images/similarnames.png)
 
 In the **Add Web Site** dialog box
+
 ![addsite](images/addsite.png)
 
 1. Type a name for your Website in the **Site name** field.
@@ -301,6 +304,7 @@ In this step you will literally deploy your website. It means that you will run 
 ![cmd](images/cmd.png) 
 3. The ` /Y` flag deploys the package to the current machine (or destination server). Add this flag (upper case required) next to the file location address.
 4. Hit **Enter**
+
 The file will be launched 
  
  **CAM**
@@ -315,7 +319,7 @@ Instead of D:\site build\ use your path to the file `Trimedx.Healthcare.Web.Admi
 >You can ensure that you've done everything correctly if you return to IIS Manager and refresh Connections pane (right-click in the Connections pane and choose **Refresh**). Your website node will have several additional folders in the tree below
 
 ---
-### Step 8: Open your website in the browser
+### Step 8: Open your website in a browser
 
 1. Open IIS Manager
 2. Choose your website
@@ -496,14 +500,18 @@ It means that the `localhost:54477` should be substituted with the relevant to y
 
 
 **How to generate a new token**
+
 Open Okta web interface (e.g., https://trimedx.oktapreview.com)
 
 1. Go to **API** -> **Tokens** 
 ![token](images/token.png)
+
 2. Click **Create Token** button
 ![createtoken](images/createtoken.png)
+
 3. In the Create Token popup window enter the name of your token and click **Create token** button
 ![tokenpopup](images/tokenpopup.png)
+
 4. This is the only time you see the token value. Copy it to clipboard and paste in the corresponding argument of `appsettings.Production.json` file (see **Admin Portal APP Settings** above)
 ![tokenvalue](images/tokenvalue.png)
 
@@ -512,7 +520,7 @@ Okta authentication is considered to be integrated into your project the moment 
 ---
 ### Step 16: Launch your website
 
-Launch your website from IIS
+Browse your website from **IIS Manager**
 
 ---
 ## Update or re-deploy your websites
@@ -551,4 +559,4 @@ If your database scripts were changed, *execute the new scripts*. To do so, repe
 *Restart your website from the IIS Manager* left sidebar, see **Step 7** for details
 
 ---
-*Launch your website* from IIS, see **Step 8**
+*Browse your website* from IIS, see **Step 8**
