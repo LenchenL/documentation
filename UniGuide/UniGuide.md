@@ -22,7 +22,7 @@ In this walkthrough we will go through all the deployment process step by step. 
 In this section you will configue authorization presets in Okta web interface. Configuring Okta in advance will allow you to use designated ports in further setup.
 
 
-##Requirements
+### Requirements
 -Okta account
 
 ### Sign Up for Okta
@@ -39,7 +39,7 @@ When you create a new Okta organization, it will be assigned a base URL like `de
 
 The settings that you will tune in this section are interconnected with the deployment IIS Manager settings. It means, that the sites and ports you enter here should be the same as the sites and ports you enter in your IIS Manager setup. 
 
->Note: An **Application** for https://trimedx.oktapreview.com developer account is already set up, please, look through the settings and varify them **Edit** button in **Applications** menu. 
+>Note: An **Application** for https://trimedx.oktapreview.com developer account is already set up, please, look through the settings and varify them. Click **Edit** button in **Applications** menu. 
 
 1. Open **Applications** menu
 2. Click **Add application** button
@@ -95,10 +95,10 @@ Get access to the [GitHub repository](https://github.com/tmxtaap/TAAP.git) of th
 
 >Ask for an email invitation from the owner of the project to access it
 
-Clone the repository to your local disk. You can choose the most convenient way for you
-  - using an SSH key pair (see the instruction below); 
-  - via https link;
+Clone the repository to your local disk. You can choose the most convenient way for you:
+
   - download a .zip file and extact the repo to the destination you choose on your local computer
+  - using an SSH key pair (see the instruction below); 
 
 *It's recommended to use SSH key pair and Git commands. This approach will help to save time and space on your computer when it will come to the re-deploy procedure* 
 
@@ -136,7 +136,7 @@ If you don't have an existing public and private key pair, or don't wish to use 
 ---
 **Add a new SSH key to your GitHub account**
 
-1. Open Git Bash
+1. Open Git Bash.
 2. Enter `clip < ~/.ssh/id_rsa.pub` to copy the SSH key to your clipboard.
 3. In the upper-right corner of any page, click your profile photo, then click **Settings**.
 
@@ -172,27 +172,26 @@ If you don't have an existing public and private key pair, or don't wish to use 
 
 Open `Trimedx.Healthcare.sln` with Visual Studio 2017. If you have installed the prerequisites correctly, the solution file will be opened smoothly. Otherwise, Visual Studio will require installing the missing components.
 
-Open the Solution Explorer
->You can do it from the main menu of the Visual Studio: View -> Solution Explorer or using hotkeys Ctrl + W, S (consecutively)
+Open the Solution Explorer from the main menu of the Visual Studio: View -> Solution Explorer
 
 
 **CAM**
 
-In the Solution Explorer right-click the Trimedx.Healthcare.Web project and select Publish to open the **Publish Web** tab
+In the Solution Explorer right-click the Trimedx.Healthcare.Web project and select **Publish...** to open the tab with the settings for Publishing
 
 ![publish](images/publish.png)
 
 **Admin**
 
-In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project and select Publish to open the **Publish Web** tab
+In the Solution Explorer right-click the Trimedx.Healthcare.Admin.Web project and select **Publish...** to open the tab with the settings for Publishing
 
 ---
 ### Step 3: Create your Publish Profile
 
-You will need to create its own **Publish profile** for CAM and for Admin portal. Make the profiles' names explicitely show which website they belong to (CAM or Admin). 
+Each publishing process requires to create the **Publish profile**. It means that you will have two different publishing profiles for CAM and for Admin portals. The profiles' names should show explicitely which website they belong to (CAM or Admin). 
 
-1. In the **Publish web** right-hand pane choose **Publish**
-2. Click **Create new profile** inline link ![newprofile](images/newprofile.png)
+1. In the right-hand side menu choose **Publish**
+2. Click **Start** button to initiate creation of a new Publish profile ![newprofile](images/newprofile.png)
 3. Pick **IIS, FTP, etc** as a publish target ![target](images/target.png)
 4. Click **Create profile** button and configure your profile in the Publish wizard
 5. In **Connection** tab 
@@ -207,12 +206,11 @@ You will need to create its own **Publish profile** for CAM and for Admin portal
     3. Choose Target runtime depending on the OS
 7. Click **Save** to save changes and close the wizard
 
+
 ---
 ### Step 4: Build your project
 
 When you are done with Publish Profile settings, click 'Publish' button. The package building process will start ![publishing](images/publishing.png)
-
->The settings for a publish profile are stored in a .pubxml file that is located in the PublishProfiles folder. In web application projects, the PublishProfiles folder is in the Properties folder (for C#). In web site projects the PublishProfiles folder is in the App_Data folder. When you create the first publish profile in a web site project, a website.publishproj file is also created in the root folder of the website. These files are only used for publishing; they are not deployed when you deploy the site.
 
 **CAM**
 
