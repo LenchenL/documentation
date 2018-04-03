@@ -86,7 +86,7 @@ Repeat the action for each origin (website).
 
 Later, when the website is deployed, you will apply these settings locally by editing .json configuration files.
 
-## Deployment quide
+## Deployment guide
 In this section you will deploy both sites. Bear in mind that most of the steps are the same for each of them. The peculiarities will be described under the subtitles **CAM** for CAM Portal deployment process and **Admin** for Admin Portal deployment process.
 
 

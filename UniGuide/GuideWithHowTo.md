@@ -2,7 +2,7 @@
 
 In this walkthrough we will go through all the deployment process step by step. Before you start, please, prepare your environment for deployment. The tools and software you will need are listed in the next section
 
-It is also considered that your Okta application is already set up. If not, or you need to verify the settigns, please, see **How To's**: **How to set up Okta configuration** section
+It is also considered that your Okta application is already set up. If not, or you need to verify the settings, please, see **How To's**: **How to set up Okta configuration** section
 
 >Note: It is strongly recommended to read the whole document before you start deployment to understand how the settings are interconnected and mutually dependent
 
@@ -19,7 +19,7 @@ It is also considered that your Okta application is already set up. If not, or y
 - Notepad ++
 - GitHub account
 
-## Deployment quide
+## Deployment guide
 In this section you will deploy both sites. Bear in mind that most of the steps are the same for each of them. The peculiarities will be described under the subtitles **CAM** for CAM Portal deployment process and **Admin** for Admin Portal deployment process.
 
 ### Step 1: Copy repository to your local computer
